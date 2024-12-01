@@ -17,6 +17,9 @@ importers:
       '@oclif/plugin-plugins':
         specifier: ^5
         version: 5.4.19
+      node-srt:
+        specifier: ^2.0.1
+        version: 2.0.1
     devDependencies:
       '@oclif/prettier-config':
         specifier: ^0.2.1
@@ -989,6 +992,10 @@ packages:
   color-name@1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
 
+  commander@6.2.1:
+    resolution: {integrity: sha512-U7VdrJFnJgo4xjrHpTzu0yrHPGImdsmD95ZlgYSEajAn2JKzDhDTPG9kBTefmObL2w/ngeZnilk+OV9CG3d7UA==}
+    engines: {node: '>= 6'}
+
   concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
@@ -1904,6 +1911,11 @@ packages:
 
   no-case@3.0.4:
     resolution: {integrity: sha512-fgAN3jGAh+RoxUGZHTSOLJIqUc2wmoBwGR4tbpNAKmmovFoWq0OdRkb0VkldReO2a2iBT/OEulG9XSUc10r3zg==}
+
+  node-srt@2.0.1:
+    resolution: {integrity: sha512-ngawYvXXCh53CCz5f083hpJKhx/duOZpEzqtdEn1QjhO02YzFqXqdx7ILDZXzewUgl1me5foTbWVFG4xWsRBQQ==}
+    engines: {node: '>= 8.16.0'}
+    hasBin: true
 
   normalize-package-data@2.5.0:
     resolution: {integrity: sha512-/5CMN3T0R4XTj4DcGaexo+roZSdSFW/0AOOTROrjxzCG1wrWXEsGbRKevjlIL+ZDE4sZlJr5ED4YW0yqmkK+eA==}
@@ -4193,6 +4205,8 @@ snapshots:
 
   color-name@1.1.4: {}
 
+  commander@6.2.1: {}
+
   concat-map@0.0.1: {}
 
   config-chain@1.1.13:
@@ -5205,6 +5219,10 @@ snapshots:
     dependencies:
       lower-case: 2.0.2
       tslib: 2.8.1
+
+  node-srt@2.0.1:
+    dependencies:
+      commander: 6.2.1
 
   normalize-package-data@2.5.0:
     dependencies:
