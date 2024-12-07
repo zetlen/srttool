@@ -45,7 +45,9 @@ export default class Process extends Command {
   };
 
   protected logInfo(message: string) {
-    this.logToStderr(`${chalk.dim.blue("[info]")} ${chalk.dim.yellow(message)}`);
+    this.logToStderr(
+      `${chalk.dim.blue("[info]")} ${chalk.dim.yellow(message)}`,
+    );
   }
 
   public async run(): Promise<void> {
@@ -70,10 +72,12 @@ export default class Process extends Command {
       transforms.push(
         filter(
           (node) =>
-            !(node.type === "cue" &&
-            flags.remove!.some(
-              (toRemove) => node.data.text.includes(toRemove),
-            )),
+            !(
+              node.type === "cue" &&
+              flags.remove!.some((toRemove) =>
+                node.data.text.includes(toRemove),
+              )
+            ),
         ),
       );
       this.logInfo(
@@ -84,13 +88,10 @@ export default class Process extends Command {
     }
 
     transforms.push(stringify({ format: "SRT" }));
-    if (flags.destination) {
-      transforms.push(createWriteStream(flags.destination));
-      this.logInfo(`Outputting to ${flags.destination}`);
-    } else {
-      transforms.push(process.stdout);
-      this.logInfo("Writing to stdout");
-    }
+
+    const [outStream, name] = createOutStream(flags.destination);
+    transforms.push(outStream);
+    this.logInfo(`Writing to ${name}`);
 
     try {
       await pipeline(transforms, {
@@ -101,4 +102,30 @@ export default class Process extends Command {
       this.error(error as Error, { exit: 2 });
     }
   }
+}
+
+function createOutStream(filePath?: string): [stream: Writable, name: string] {
+  if (filePath) {
+    return [createWriteStream(filePath), filePath];
+  }
+
+  // horrible hack for testing because @oclif/testing can't deal with piping
+  // directly to stdout
+
+  if (process.env.NODE_ENV === "test") {
+    return [
+      new Writable({
+        writev(chunks, cb) {
+          for (const { chunk } of chunks) {
+            process.stdout.write(chunk);
+          }
+
+          cb();
+        },
+      }),
+      "test stdout",
+    ];
+  }
+
+  return [process.stdout, "stdout"];
 }

@@ -1,20 +1,21 @@
-srttool
-=================
+# srttool
 
 Manipulate and correct .srt subtitle files
-
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/srttool.svg)](https://npmjs.org/package/srttool)
 [![Downloads/week](https://img.shields.io/npm/dw/srttool.svg)](https://npmjs.org/package/srttool)
 
-
 <!-- toc -->
-* [Usage](#usage)
-* [Commands](#commands)
+
+- [Usage](#usage)
+- [Commands](#commands)
 <!-- tocstop -->
+
 # Usage
+
 <!-- usage -->
+
 ```sh-session
 $ npm install -g srttool
 $ srttool COMMAND
@@ -26,22 +27,26 @@ USAGE
   $ srttool COMMAND
 ...
 ```
+
 <!-- usagestop -->
+
 # Commands
+
 <!-- commands -->
-* [`srttool hello PERSON`](#srttool-hello-person)
-* [`srttool hello world`](#srttool-hello-world)
-* [`srttool help [COMMAND]`](#srttool-help-command)
-* [`srttool plugins`](#srttool-plugins)
-* [`srttool plugins add PLUGIN`](#srttool-plugins-add-plugin)
-* [`srttool plugins:inspect PLUGIN...`](#srttool-pluginsinspect-plugin)
-* [`srttool plugins install PLUGIN`](#srttool-plugins-install-plugin)
-* [`srttool plugins link PATH`](#srttool-plugins-link-path)
-* [`srttool plugins remove [PLUGIN]`](#srttool-plugins-remove-plugin)
-* [`srttool plugins reset`](#srttool-plugins-reset)
-* [`srttool plugins uninstall [PLUGIN]`](#srttool-plugins-uninstall-plugin)
-* [`srttool plugins unlink [PLUGIN]`](#srttool-plugins-unlink-plugin)
-* [`srttool plugins update`](#srttool-plugins-update)
+
+- [`srttool hello PERSON`](#srttool-hello-person)
+- [`srttool hello world`](#srttool-hello-world)
+- [`srttool help [COMMAND]`](#srttool-help-command)
+- [`srttool plugins`](#srttool-plugins)
+- [`srttool plugins add PLUGIN`](#srttool-plugins-add-plugin)
+- [`srttool plugins:inspect PLUGIN...`](#srttool-pluginsinspect-plugin)
+- [`srttool plugins install PLUGIN`](#srttool-plugins-install-plugin)
+- [`srttool plugins link PATH`](#srttool-plugins-link-path)
+- [`srttool plugins remove [PLUGIN]`](#srttool-plugins-remove-plugin)
+- [`srttool plugins reset`](#srttool-plugins-reset)
+- [`srttool plugins uninstall [PLUGIN]`](#srttool-plugins-uninstall-plugin)
+- [`srttool plugins unlink [PLUGIN]`](#srttool-plugins-unlink-plugin)
+- [`srttool plugins update`](#srttool-plugins-update)
 
 ## `srttool hello PERSON`
 
@@ -394,4 +399,5 @@ DESCRIPTION
 ```
 
 _See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.4.19/src/commands/plugins/update.ts)_
+
 <!-- commandsstop -->

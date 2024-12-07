@@ -2,7 +2,10 @@
   "name": "srttool",
   "description": "Manipulate and correct .srt subtitle files",
   "version": "0.0.1",
-  "author": "zetlen",
+  "author": {
+    "email": "zetlen@gmail.com",
+    "name": "zetlen"
+  },
   "bin": {
     "srttool": "./bin/run.js"
   },
@@ -20,12 +23,14 @@
     "@types/chai": "^4.3.20",
     "@types/mocha": "^10.0.10",
     "@types/node": "^18.19.67",
+    "c8": "^10.1.2",
     "chai": "^4.5.0",
     "eslint": "^8.57.1",
     "eslint-config-oclif": "^5.2.2",
     "eslint-config-oclif-typescript": "^3.1.12",
     "eslint-config-prettier": "^9.1.0",
     "mocha": "^10.8.2",
+    "mock-stdin": "^1.0.0",
     "oclif": "^4.15.30",
     "prettier": "^3.4.1",
     "shx": "^0.3.4",
@@ -63,13 +68,15 @@
     "topics": {}
   },
   "repository": "zetlen/srttool",
+  "packageManager": "pnpm@9.15.0",
   "scripts": {
     "build": "shx rm -rf dist && tsc -b",
-    "lint": "eslint . --ext .ts",
+    "lint": "prettier --check . && eslint . --ext .ts",
+    "format": "prettier --write . && eslint . --ext .ts --fix",
     "postpack": "shx rm -f oclif.manifest.json",
-    "posttest": "pnpm run lint",
+    "test": "pnpm run test:unit && pnpm run lint",
+    "test:unit": "c8 mocha \"test/**/*.test.ts\"",
     "prepack": "oclif manifest && oclif readme",
-    "test": "mocha --forbid-only \"test/**/*.test.ts\"",
     "version": "oclif readme && git add README.md"
   },
   "types": "dist/index.d.ts"
