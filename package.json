@@ -1,7 +1,7 @@
 {
   "name": "srttool",
   "description": "Manipulate and correct .srt subtitle files",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "author": {
     "email": "zetlen@gmail.com",
     "name": "zetlen"
