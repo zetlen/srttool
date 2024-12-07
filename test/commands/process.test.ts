@@ -1,9 +1,10 @@
 import { captureOutput, runCommand } from "@oclif/test";
 import { expect } from "chai";
+import { stdin as fstdin } from "mock-stdin";
 import { readFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { stdin as fstdin } from "mock-stdin";
+
 import Process from "../../src/commands/process";
 
 const trekSrtPath = "examples/trek.srt";
@@ -16,9 +17,13 @@ const tmpPath = (name: string) =>
 
 describe("process", () => {
   let trekSrt: string;
+  let trekNoAds: string;
+  let trekOffset: string;
   let stdin: ReturnType<typeof fstdin>;
   before(async () => {
     trekSrt = await readFile(trekSrtPath, "utf8");
+    trekNoAds = await readFile("examples/trek-noads.srt", "utf8");
+    trekOffset = await readFile("examples/trek-offset.srt", "utf8");
     stdin = fstdin();
   });
   it("prints to stdout", async () => {
@@ -28,7 +33,7 @@ describe("process", () => {
   });
   it("prints to a file", async () => {
     const temp = tmpPath("treksrtout.json");
-    const { stdout, stderr } = await runCommand([
+    const { stderr, stdout } = await runCommand([
       "-s",
       trekSrtPath,
       "-d",
@@ -39,11 +44,31 @@ describe("process", () => {
     expect(stderr).to.contain("[info]");
   });
   it.skip("accepts stdin", async () => {
-    const { stdout, stderr } = await captureOutput(async () => {
+    const { stderr, stdout } = await captureOutput(async () => {
       setTimeout(() => stdin.send(trekSrt), 10);
       return Process.run();
     });
     expect(stderr).to.contain("[info]");
     expect(stdout).to.equal(trekSrt);
+  });
+  it("removes matched cues", async () => {
+    const { stderr, stdout } = await runCommand([
+      "-s",
+      trekSrtPath,
+      "-r",
+      "Advertisement",
+    ]);
+    expect(stdout).to.equal(trekNoAds);
+    expect(stderr).to.contain("Removing all cues that contain text");
+  });
+  it("offsets by provided amount", async () => {
+    const { stderr, stdout } = await runCommand([
+      "-s",
+      trekSrtPath,
+      "--offset",
+      "5000",
+    ]);
+    expect(stdout).to.equal(trekOffset);
+    expect(stderr).to.contain("Offsetting all cues");
   });
 });

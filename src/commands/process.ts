@@ -127,5 +127,6 @@ function createOutStream(filePath?: string): [stream: Writable, name: string] {
     ];
   }
 
+  /* c8 ignore next */
   return [process.stdout, "stdout"];
 }

@@ -1,17 +1,17 @@
 1
-00:00:05,588 --> 00:00:10,588
+00:00:10,588 --> 00:00:15,588
 - Advertisement at the beginning of the SRT -
 - www.example.com -
 
 2
-00:00:25,433 --> 00:00:28,349
+00:00:30,433 --> 00:00:33,349
 Previously on Star Trek:
 Strange New Worlds...
 
 3
-00:00:28,392 --> 00:00:29,959
+00:00:33,392 --> 00:00:34,959
 When we seek out the unknown,
 
 4
-00:00:30,002 --> 00:00:31,308
+00:00:35,002 --> 00:00:36,308
 we will find things that challenge us.
