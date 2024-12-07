@@ -23,9 +23,9 @@ jobs:
         run: |
           if [[ "\"$(npx -y git-conventional-commits version)\"" == "$(npm pkg get version)" ]];
           then
-            echo "skipped=false" >> $GITHUB_OUTPUT
-          else
             echo "skipped=true" >> $GITHUB_OUTPUT
+          else
+            echo "skipped=false" >> $GITHUB_OUTPUT
           fi
       - name: Setup git
         if: ${{ steps.version-check.outputs.skipped == 'false' }}
