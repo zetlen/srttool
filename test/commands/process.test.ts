@@ -40,7 +40,7 @@ describe("process", () => {
       "-d",
       temp,
     ]);
-    expect(await readFile(temp, "utf8")).to.equal(trekSrt);
+    expect(eol.auto(await readFile(temp, "utf8"))).to.equal(trekSrt);
     expect(eol.auto(stdout)).to.be.empty;
     expect(eol.auto(stderr)).to.contain("[info]");
   });
