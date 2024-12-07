@@ -110,23 +110,17 @@ function createOutStream(filePath?: string): [stream: Writable, name: string] {
   }
 
   // horrible hack for testing because @oclif/testing can't deal with piping
-  // directly to stdout
+  // directly to stdout, so we make an equivalent that uses process.stdout.write
+  return [
+    new Writable({
+      writev(chunks, cb) {
+        for (const { chunk } of chunks) {
+          process.stdout.write(chunk);
+        }
 
-  if (process.env.NODE_ENV === "test") {
-    return [
-      new Writable({
-        writev(chunks, cb) {
-          for (const { chunk } of chunks) {
-            process.stdout.write(chunk);
-          }
-
-          cb();
-        },
-      }),
-      "test stdout",
-    ];
-  }
-
-  /* c8 ignore next */
-  return [process.stdout, "stdout"];
+        cb();
+      },
+    }),
+    "stdout",
+  ];
 }

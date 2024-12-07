@@ -1,7 +1,7 @@
 {
   "name": "srttool",
   "description": "Manipulate and correct .srt subtitle files",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "author": {
     "email": "zetlen@gmail.com",
     "name": "zetlen"
@@ -25,6 +25,7 @@
     "@types/node": "^18.19.67",
     "c8": "^10.1.2",
     "chai": "^4.5.0",
+    "eol": "^0.10.0",
     "eslint": "^8.57.1",
     "eslint-config-oclif": "^5.2.2",
     "eslint-config-oclif-typescript": "^3.1.12",
