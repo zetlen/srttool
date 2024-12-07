@@ -1,10 +1,10 @@
 import { captureOutput, runCommand } from "@oclif/test";
 import { expect } from "chai";
+import eol from "eol";
 import { stdin as fstdin } from "mock-stdin";
 import { readFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import eol from "eol"
 
 import Process from "../../src/commands/process";
 
