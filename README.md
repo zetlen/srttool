@@ -58,7 +58,7 @@ $ npm install -g srttool
 $ srttool COMMAND
 running command...
 $ srttool (--version)
-srttool/0.0.1 linux-x64 node-v18.20.5
+srttool/0.0.2 linux-x64 node-v18.20.5
 $ srttool --help [COMMAND]
 USAGE
   $ srttool COMMAND
