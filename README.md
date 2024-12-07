@@ -9,18 +9,16 @@ Manipulate and correct .srt subtitle files
 # Table of contents
 
 <!-- toc -->
-
-- [srttool](#srttool)
-- [Table of contents](#table-of-contents)
-- [Commands](#commands)
-- [Usage](#usage)
+* [srttool](#srttool)
+* [Table of contents](#table-of-contents)
+* [Commands](#commands)
+* [Usage](#usage)
 <!-- tocstop -->
 
 # Commands
 
 <!-- commands -->
-
-- [`srttool [SHELL]`](#srttool-shell)
+* [`srttool [SHELL]`](#srttool-shell)
 
 ## `srttool [SHELL]`
 
@@ -50,13 +48,11 @@ EXAMPLES
 
   $ srttool autocomplete --refresh-cache
 ```
-
 <!-- commandsstop -->
 
 # Usage
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g srttool
 $ srttool COMMAND
@@ -68,5 +64,4 @@ USAGE
   $ srttool COMMAND
 ...
 ```
-
 <!-- usagestop -->
