@@ -28,48 +28,38 @@ describe("process", () => {
     stdin = fstdin();
   });
   it("prints to stdout", async () => {
-    const { stderr, stdout } = await runCommand(["-s", trekSrtPath]);
+    const { stdout } = await runCommand(["-s", trekSrtPath]);
     expect(eol.auto(stdout)).to.equal(trekSrt);
-    expect(eol.auto(stderr)).to.contain("[info]");
   });
   it("prints to a file", async () => {
     const temp = tmpPath("treksrtout.json");
-    const { stderr, stdout } = await runCommand([
-      "-s",
-      trekSrtPath,
-      "-d",
-      temp,
-    ]);
+    const { stdout } = await runCommand(["-s", trekSrtPath, "-d", temp]);
     expect(eol.auto(await readFile(temp, "utf8"))).to.equal(trekSrt);
     expect(eol.auto(stdout)).to.be.empty;
-    expect(eol.auto(stderr)).to.contain("[info]");
   });
   it.skip("accepts stdin", async () => {
-    const { stderr, stdout } = await captureOutput(async () => {
+    const { stdout } = await captureOutput(async () => {
       setTimeout(() => stdin.send(trekSrt), 10);
       return Process.run();
     });
-    expect(eol.auto(stderr)).to.contain("[info]");
     expect(eol.auto(stdout)).to.equal(trekSrt);
   });
   it("removes matched cues", async () => {
-    const { stderr, stdout } = await runCommand([
+    const { stdout } = await runCommand([
       "-s",
       trekSrtPath,
       "-r",
       "Advertisement",
     ]);
     expect(eol.auto(stdout)).to.equal(trekNoAds);
-    expect(eol.auto(stderr)).to.contain("Removing all cues that contain text");
   });
   it("offsets by provided amount", async () => {
-    const { stderr, stdout } = await runCommand([
+    const { stdout } = await runCommand([
       "-s",
       trekSrtPath,
       "--offset",
       "5000",
     ]);
     expect(eol.auto(stdout)).to.equal(trekOffset);
-    expect(eol.auto(stderr)).to.contain("Offsetting all cues");
   });
 });

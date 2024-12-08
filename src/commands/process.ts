@@ -1,9 +1,12 @@
 import { Command, Flags } from "@oclif/core";
-import chalk from "chalk";
+import { default as createDebug } from "debug";
 import { createReadStream, createWriteStream } from "node:fs";
 import { Readable, Writable } from "node:stream";
 import { pipeline } from "node:stream/promises";
-import { filter, parse, resync, stringify } from "subtitle";
+
+import { getSrtTransforms } from "../lib/srt-transforms.js";
+
+const debug = createDebug("srttool:process");
 
 export default class Process extends Command {
   static override description =
@@ -44,83 +47,48 @@ export default class Process extends Command {
     }),
   };
 
-  protected logInfo(message: string) {
-    this.logToStderr(
-      `${chalk.dim.blue("[info]")} ${chalk.dim.yellow(message)}`,
-    );
-  }
-
   public async run(): Promise<void> {
     const { flags } = await this.parse(Process);
     let input: Readable;
     if (flags.source) {
       input = createReadStream(flags.source, "utf8");
-      this.logInfo(`Reading from ${flags.source}`);
+      debug(`Reading from ${flags.source}`);
     } else {
       input = process.stdin;
-      this.logInfo(`Reading from stdin`);
+      debug(`Reading from stdin`);
     }
 
-    const transforms: (Readable | Writable)[] = [input, parse()];
-
-    if (flags.offset) {
-      transforms.push(resync(flags.offset));
-      this.logInfo(`Offsetting all cues by ${flags.offset}ms`);
-    }
-
-    if (flags.remove && flags.remove.length > 0) {
-      transforms.push(
-        filter(
-          (node) =>
-            !(
-              node.type === "cue" &&
-              flags.remove!.some((toRemove) =>
-                node.data.text.includes(toRemove),
-              )
-            ),
-        ),
-      );
-      this.logInfo(
-        ["Removing all cues that contain text:", ...flags.remove].join(
-          "\n  - ",
-        ),
-      );
-    }
-
-    transforms.push(stringify({ format: "SRT" }));
-
-    const [outStream, name] = createOutStream(flags.destination);
-    transforms.push(outStream);
-    this.logInfo(`Writing to ${name}`);
+    const transforms = [
+      ...(await getSrtTransforms(input, flags)),
+      createOutStream(flags.destination),
+    ];
 
     try {
-      await pipeline(transforms, {
-        end: Boolean(flags.destination),
-      });
-      this.logInfo("Done!");
+      await pipeline(transforms);
+      debug("Done!");
     } catch (error) {
       this.error(error as Error, { exit: 2 });
     }
   }
 }
 
-function createOutStream(filePath?: string): [stream: Writable, name: string] {
+function createOutStream(filePath?: string): Writable {
   if (filePath) {
-    return [createWriteStream(filePath), filePath];
+    debug(`Writing to ${filePath}`);
+    return createWriteStream(filePath);
   }
 
-  // horrible hack for testing because @oclif/testing can't deal with piping
-  // directly to stdout, so we make an equivalent that uses process.stdout.write
-  return [
-    new Writable({
-      writev(chunks, cb) {
-        for (const { chunk } of chunks) {
-          process.stdout.write(chunk);
-        }
+  debug(`Writing to stdout`);
 
-        cb();
-      },
-    }),
-    "stdout",
-  ];
+  // passthrough to stdout, which permits easier testing
+  // also avoids write-after-end by not closing stdout when done
+  return new Writable({
+    writev(chunks, cb) {
+      for (const { chunk } of chunks) {
+        process.stdout.write(chunk);
+      }
+
+      cb();
+    },
+  });
 }
