@@ -55,7 +55,7 @@ jobs:
         if: ${{ steps.version-check.outputs.skipped == 'false' }}
         with:
           name: ${{ steps.changelog.outputs.tag }}
-          tag: v${{ steps.changelog.outputs.tag }}
+          tag: ${{ steps.changelog.outputs.tag }}
           token: ${{ secrets.GITHUB_TOKEN }}
           draft: true
           allowUpdates: true
