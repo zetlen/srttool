@@ -1,4 +1,13 @@
-## [0.1.1](https://github.com/zetlen/srttool/compare/v0.0.2...v0.1.1) (2024-12-07)
+## [0.1.2](https://github.com/zetlen/srttool/compare/vv0.1.1...v0.1.2) (2024-12-08)
+
+
+### Bug Fixes
+
+* **ci:** tag name ([55d196a](https://github.com/zetlen/srttool/commit/55d196a57ac64e28fedc9cc65c440eacf4fdfd2e))
+
+
+
+## [v0.1.1](https://github.com/zetlen/srttool/compare/v0.1.1...vv0.1.1) (2024-12-07)
 
 
 ### Bug Fixes
