@@ -1,3 +1,12 @@
+## [0.1.4](https://github.com/zetlen/srttool/compare/v0.1.3...v0.1.4) (2024-12-08)
+
+
+### Bug Fixes
+
+* busted releases ([d16d419](https://github.com/zetlen/srttool/commit/d16d419851a63a852ece4ccf21a636d056929ead))
+
+
+
 ## [0.1.3](https://github.com/zetlen/srttool/compare/v0.1.2...v0.1.3) (2024-12-08)
 
 
@@ -22,10 +31,6 @@
 ### Performance Improvements
 
 * Always use passthrough to stdout ([5351163](https://github.com/zetlen/srttool/commit/5351163f1a4e9afdcf53ad1ba68daf66af19387b))
-
-
-
-## [0.0.2](https://github.com/zetlen/srttool/compare/v0.0.1...v0.0.2) (2024-12-07)
 
 
 
